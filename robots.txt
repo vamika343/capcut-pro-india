@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vamika343.github.io/capcut-pro-india/sitemap.xml
