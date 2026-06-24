@@ -17,6 +17,12 @@
         .internal-links { margin-top: 3rem; display: flex; gap: 1rem; flex-wrap: wrap; }
         .internal-links a { display: inline-block; padding: 10px 20px; background: #2a2a35; color: #bbb; text-decoration: none; border-radius: 6px; }
         .internal-links a:hover { background: #444; color: #fff; }
+
+        /* Pricing Card Styles */
+        .plan-card { cursor: pointer; transition: all 0.3s ease; border: 2px solid #333; }
+        .plan-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .plan-card.active { border-color: #00ff88 !important; box-shadow: 0 0 20px rgba(0,255,136,0.3); transform: scale(1.05); z-index: 10; position: relative; }
+        .vip-card { border-color: #00e0ff; }
     
         /* Mobile Menu Styles */
         .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; width: 100%; }
@@ -108,7 +114,7 @@
         <!-- Pricing Cards -->
         <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 2rem 0;">
             <!-- Card 1: 1-Month -->
-            <div style="flex:1; min-width:220px; background: #1a1a2e; border: 1px solid #333; border-radius: 12px; padding: 1.5rem; text-align: center;">
+            <div class="plan-card active" onclick="selectPlan(this, '1-Month', 349)" style="flex:1; min-width:220px; background: #1a1a2e; border-radius: 12px; padding: 1.5rem; text-align: center;">
                 <h3 style="color:#fff; margin-top:1rem;">Private (1-Month)</h3>
                 <p style="text-decoration: line-through; color: #666; margin:0;">₹799</p>
                 <p style="font-size: 2.5rem; font-weight: bold; color: #00ff88; margin: 0.5rem 0;">₹349</p>
@@ -120,7 +126,7 @@
                 </ul>
             </div>
             <!-- Card 2: 6-Months -->
-            <div style="flex:1; min-width:220px; background: #1a1a2e; border: 1px solid #333; border-radius: 12px; padding: 1.5rem; text-align: center;">
+            <div class="plan-card" onclick="selectPlan(this, '6-Months', 1499)" style="flex:1; min-width:220px; background: #1a1a2e; border-radius: 12px; padding: 1.5rem; text-align: center;">
                 <h3 style="color:#fff; margin-top:1rem;">Private (6-Months)</h3>
                 <p style="text-decoration: line-through; color: #666; margin:0;">₹3,999</p>
                 <p style="font-size: 2.5rem; font-weight: bold; color: #00ff88; margin: 0.5rem 0;">₹1,499</p>
@@ -132,7 +138,7 @@
                 </ul>
             </div>
             <!-- Card 3: 1-Year VIP -->
-            <div style="flex:1; min-width:220px; background: linear-gradient(135deg, #1a1a2e, #16213e); border: 2px solid #00e0ff; border-radius: 12px; padding: 1.5rem; text-align: center; position: relative;">
+            <div class="plan-card vip-card" onclick="selectPlan(this, '1-Year VIP', 2499)" style="flex:1; min-width:220px; background: linear-gradient(135deg, #1a1a2e, #16213e); border-radius: 12px; padding: 1.5rem; text-align: center; position: relative;">
                 <div style="position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:#00e0ff; color:#000; padding:4px 16px; border-radius:20px; font-weight:bold; font-size:0.8rem;">BEST VALUE 🔥</div>
                 <h3 style="color:#00e0ff; margin-top:1rem;">Private (1-Year VIP)</h3>
                 <p style="text-decoration: line-through; color: #666; margin:0;">₹7,999</p>
@@ -149,13 +155,25 @@
 
         <!-- Buy Buttons -->
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin: 1.5rem 0;">
-            <a href="https://jeetsoft.com/capcut-pro" target="_blank" style="flex:1; min-width:200px; display:block; text-align:center; padding:16px; background:linear-gradient(90deg, #00e0ff, #0088ff); color:#000; font-weight:bold; font-size:1.2rem; border-radius:10px; text-decoration:none;">
+            <a href="https://jeetsoft.com/capcut-pro" target="_blank" style="flex:1; min-width:200px; display:block; text-align:center; padding:16px; background:linear-gradient(90deg, #00e0ff, #0088ff); color:#000; font-weight:bold; font-size:1.2rem; border-radius:10px; text-decoration:none; transition:0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
                 🌐 Buy Now on JeetSoft
             </a>
-            <a href="https://api.whatsapp.com/send/?phone=919459503041&text=Hi%20JeetSoft%2C%20I%20want%20to%20buy%20CapCut%20Pro.%20Please%20share%20the%20details." target="_blank" style="flex:1; min-width:200px; display:block; text-align:center; padding:16px; background:linear-gradient(90deg, #25D366, #128C7E); color:#fff; font-weight:bold; font-size:1.2rem; border-radius:10px; text-decoration:none;">
+            <a id="whatsappBtn" href="https://api.whatsapp.com/send/?phone=919459503041&text=Hi%20JeetSoft%2C%20I%20want%20to%20buy%20CapCut%20Pro%201-Month%20plan%20for%20%E2%82%B9349." target="_blank" style="flex:1; min-width:200px; display:block; text-align:center; padding:16px; background:linear-gradient(90deg, #25D366, #128C7E); color:#fff; font-weight:bold; font-size:1.2rem; border-radius:10px; text-decoration:none; transition:0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
                 💬 Buy on WhatsApp
             </a>
         </div>
+
+        <script>
+            function selectPlan(element, planName, price) {
+                let cards = document.querySelectorAll('.plan-card');
+                cards.forEach(c => c.classList.remove('active'));
+                element.classList.add('active');
+                
+                let waBtn = document.getElementById('whatsappBtn');
+                let message = `Hi JeetSoft, I want to buy CapCut Pro ${planName} plan for ₹${price}.`;
+                waBtn.href = `https://api.whatsapp.com/send/?phone=919459503041&text=${encodeURIComponent(message)}`;
+            }
+        </script>
 
         <!-- SEO Article (800+ Words, Mojolo Guidelines V2.0) -->
         <div class="article">
