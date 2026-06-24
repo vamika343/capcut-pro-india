@@ -24,6 +24,20 @@
         .internal-links { margin-top: 3rem; display: flex; gap: 1rem; flex-wrap: wrap; }
         .internal-links a { display: inline-block; padding: 10px 20px; background: #2a2a35; color: #bbb; text-decoration: none; border-radius: 6px; }
         .internal-links a:hover { background: #444; color: #fff; }
+    
+        /* Mobile Menu Styles */
+        .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; width: 100%; }
+        .nav-logo { color: #fff; font-size: 1.2rem; font-weight: bold; text-decoration: none; display: flex; align-items: center; gap: 8px;}
+        .hamburger { display: none; background: none; border: none; color: #fff; font-size: 1.8rem; cursor: pointer; }
+        .nav-links { display: flex; gap: 15px; transition: max-height 0.3s ease-out; overflow: hidden; }
+        .nav-links a { color: #bbb; text-decoration: none; font-weight: bold; padding: 5px 10px; border-radius: 6px; transition: 0.3s; }
+        .nav-links a:hover { color: #00e0ff; background: rgba(255,255,255,0.05); }
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            .nav-links { flex-direction: column; width: 100%; max-height: 0; background: #1e1e2d; position: absolute; top: 100%; left: 0; border-bottom: 1px solid #333; padding: 0; }
+            .nav-links.show { max-height: 300px; padding: 1rem 0; }
+            .nav-links a { text-align: center; margin: 5px 0; display: block; }
+        }
     </style>
 
     <!-- Schema: WebApplication for Template Finder Tool -->
@@ -67,12 +81,23 @@
 <body>
 
     <!-- Header Navigation -->
-    <nav style="background: #1e1e2d; padding: 1rem; text-align: center; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 100;">
-        <a href="index.html" style="color: #bbb; margin: 0 15px; text-decoration: none; font-weight: bold;">Template Finder</a>
-        <a href="buy/index.html" style="color: #bbb; margin: 0 15px; text-decoration: none; font-weight: bold;">Buy CapCut Pro</a>
-        <a href="safety/index.html" style="color: #bbb; margin: 0 15px; text-decoration: none; font-weight: bold;">Virus Check</a>
-        <a href="vpn-fix/index.html" style="color: #bbb; margin: 0 15px; text-decoration: none; font-weight: bold;">VPN Fix</a>
+    <nav style="background: #1e1e2d; padding: 1rem 2rem; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 100;">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">✂️ CapCut Guide</a>
+            <button class="hamburger" onclick="toggleMenu()">☰</button>
+            <div id="mobileMenu" class="nav-links">
+                <a href="index.html">Template Finder</a>
+                <a href="buy/index.html">Buy CapCut Pro</a>
+                <a href="safety/index.html">Virus Check</a>
+                <a href="vpn-fix/index.html">VPN Fix</a>
+            </div>
+        </div>
     </nav>
+    <script>
+        function toggleMenu() {
+            document.getElementById("mobileMenu").classList.toggle("show");
+        }
+    </script>
 
     <header>
         <h1>CapCut Trending Template Finder</h1>
